@@ -22,9 +22,12 @@ function onPayload(payload) {
     let $ = get$(node);
 
     let isSelf = payload.username === username;
-    if (!isSelf) {
-      $('.message_unit').classList.add('message_unit--not_self');
+    if (isSelf) {
+      $('.message_unit').classList.add('message_unit--self');
     }
+
+    $('.message_username').innerText = payload.username;
+    $('.message_body').innerText = payload.message;
   }
   $('#inbox').appendChild(node);
 }

@@ -27,8 +27,9 @@ body {
 
 #chat_input {
   flex-grow: 1;
-  font-size: 24px;
   margin-right: 5px;
+  padding: 10px;
+  font-size: 24px;
 }
 
 .message_unit {
@@ -36,7 +37,7 @@ body {
   display: flex;
 }
 
-.message_unit--not_self {
+.message_unit--self {
   flex-direction: row-reverse;
 }
 
