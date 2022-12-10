@@ -8,8 +8,9 @@ window.$ = get$(document);
 window.$$ = get$$(document);
 
 let achexWs = new AchexWs({
-  url: 'ws://achex.ca:4010',
-  setID: 'CRNZYCF9WG0VQT69',
+  // url: 'ws://achex.ca:4010',
+  url: 'wss://cloud.achex.ca/stoloto.ru.net',
+  auth: 'CRNZYCF9WG0VQT69',
   passwd: 'k9Hi3WXPhx61YlMt1doaQZJMBH',
   onPayload,
 });
@@ -30,11 +31,13 @@ function onPayload(payload) {
     $('.message_body').innerText = payload.message;
   }
   $('#inbox').appendChild(node);
+  $('#inbox').scrollTop = $('#inbox').scrollHeight;
 }
 
 $('#chat_form').addEventListener('submit', event => {
   event.preventDefault();
   let message = $('#chat_input').value;
+  if (message === '') return;
   achexWs.send({
     to: 'CRNZYCF9WG0VQT69',
     payload: {
@@ -42,4 +45,6 @@ $('#chat_form').addEventListener('submit', event => {
       username,
     },
   });
+
+  $('#chat_input').value = '';
 });

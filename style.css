@@ -17,6 +17,7 @@ body {
   flex-grow: 1;
   background-color: #111b21;
   border: 5px solid orange;
+  overflow: auto;
 }
 
 #chat_form {

@@ -1,32 +1,32 @@
 export default class AchexWs {
   ws;
   isAuthenticated = false;
-  constructor({ url, setID, passwd, onPayload }) {
+  constructor({ url, auth, passwd, onPayload }) {
     this.ws = new WebSocket(url);
     this.ws.onopen = this.onOpen.bind(this);
     this.ws.onerror = this.onError.bind(this);
     this.ws.onclose = this.onClose.bind(this);
     this.ws.onmessage = this.onMessage.bind(this);
 
-    this.setID = setID;
+    this.auth = auth;
     this.passwd = passwd;
     this.onPayload = onPayload;
   }
 
-  onOpen(event) {
+  onOpen() {
     log('ws: connected');
+    this.authenticate();
   }
 
   onMessage(event) {
     let data = JSON.parse(event.data);
     log('ws: onmessage', data);
 
-    if (data.auth === 'ok') {
+    if (data.auth === 'OK') {
       this.isAuthenticated = true;
       return;
     }
     if (!this.isAuthenticated) {
-      this.authenticate();
       return;
     }
 
@@ -47,7 +47,7 @@ export default class AchexWs {
 
   authenticate() {
     this.send({
-      setID: this.setID,
+      auth: this.auth,
       passwd: this.passwd,
     });
   }
